@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  wppconnect:
+    image: luizeof/wppconnect:latest
+    container_name: wppconnect-local
+    restart: unless-stopped
+    ports:
+      - "21465:21465"
+    environment:
+      - SECRET_KEY=${SECRET_KEY:-CHANGE_THIS_SECRET_KEY}
+      - NODE_ENV=${NODE_ENV:-development}
+      - PORT=21465
+    volumes:
+      # Persist WhatsApp session tokens
+      - ./tokens:/usr/src/wpp-server/tokens
+      # Optional: Mount custom config if needed
+      # - ./config.ts:/usr/src/wpp-server/config.ts:ro
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:21465/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - wppconnect-network
+
+networks:
+  wppconnect-network:
+    driver: bridge
+
+volumes:
+  tokens:
+    driver: local

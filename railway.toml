@@ -1,9 +1,5 @@
 # Railway.toml - Docker Image Deployment
-# Using pre-built luizeof/wppconnect image for faster, more reliable deployment
-
-[build]
-# Using Docker image - no build required
-dockerImage = "luizeof/wppconnect:latest"
+# Using Dockerfile to pull pre-built luizeof/wppconnect image
 
 [deploy]
 numReplicas = 1
@@ -11,6 +7,3 @@ restartPolicyType = "ON_FAILURE"
 restartPolicyMaxRetries = 3
 healthcheckPath = "/api/health"
 healthcheckTimeout = 100
-
-# Note: nixpacks.toml is only used if building from source
-# To build from source instead, change dockerImage to builder = "NIXPACKS"
