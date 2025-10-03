@@ -42,9 +42,9 @@ coverage/
 .git/
 .gitignore
 
-# Docker (not needed on Railway)
-Dockerfile
+# Docker compose (not needed on Railway, but keep Dockerfile!)
 docker-compose.yml
+docker-compose.local.yml
 .dockerignore
 
 # Environment files (configure via Railway dashboard)
