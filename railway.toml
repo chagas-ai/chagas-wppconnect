@@ -1,8 +1,9 @@
-# Railway.toml - Alternative configuration using TOML format
-# Use this if you prefer TOML over JSON
+# Railway.toml - Docker Image Deployment
+# Using pre-built luizeof/wppconnect image for faster, more reliable deployment
 
 [build]
-builder = "NIXPACKS"
+# Using Docker image - no build required
+dockerImage = "luizeof/wppconnect:latest"
 
 [deploy]
 numReplicas = 1
@@ -10,13 +11,6 @@ restartPolicyType = "ON_FAILURE"
 restartPolicyMaxRetries = 3
 healthcheckPath = "/api/health"
 healthcheckTimeout = 100
-startCommand = "node dist/server.js"
 
-# For Docker Image Deployment
-# Uncomment the following if deploying from Docker Hub image:
-# [build]
-# dockerfilePath = "Dockerfile"
-#
-# Or for external image:
-# [deploy]
-# image = "luizeof/wppconnect:latest"
+# Note: nixpacks.toml is only used if building from source
+# To build from source instead, change dockerImage to builder = "NIXPACKS"
