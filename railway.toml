@@ -3,7 +3,6 @@
 
 [build]
 builder = "NIXPACKS"
-watchPatterns = ["src/**", "package.json", "yarn.lock"]
 
 [deploy]
 numReplicas = 1
