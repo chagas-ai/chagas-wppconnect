@@ -1,0 +1,87 @@
+# WPPConnect Development Tasks
+# Run tasks with: mise run <task-name>
+# List tasks with: mise tasks
+
+[tools]
+node = "latest"
+
+[tasks.local-start]
+description = "Start WPPConnect locally with Docker"
+run = "./start-local.sh"
+
+[tasks.local-stop]
+description = "Stop local WPPConnect container"
+run = '''
+echo "🛑 Stopping WPPConnect..."
+docker-compose -f docker-compose.local.yml down
+echo "✅ Stopped"
+'''
+
+[tasks.local-logs]
+description = "View local container logs"
+run = "docker-compose -f docker-compose.local.yml logs -f"
+
+[tasks.local-restart]
+description = "Restart local container"
+run = '''
+echo "🔄 Restarting WPPConnect..."
+docker-compose -f docker-compose.local.yml restart
+echo "✅ Restarted"
+'''
+
+[tasks.local-clean]
+description = "Stop and remove all local data (INCLUDING TOKENS)"
+run = '''
+echo "⚠️  This will remove all session tokens!"
+read -p "Are you sure? [y/N] " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    docker-compose -f docker-compose.local.yml down -v
+    rm -rf tokens/*
+    echo "✅ Cleaned"
+fi
+'''
+
+[tasks.railway-deploy]
+description = "Deploy to Railway (requires Railway CLI)"
+run = '''
+echo "🚀 Deploying to Railway..."
+railway up
+'''
+
+[tasks.railway-logs]
+description = "View Railway logs"
+run = "railway logs --tail"
+
+[tasks.test-api]
+description = "Test local API health"
+run = '''
+echo "Testing API..."
+curl -s http://localhost:21465/api/health | jq . || echo "❌ API not responding"
+'''
+
+[tasks.test-swagger]
+description = "Open Swagger docs in browser"
+run = '''
+echo "Opening Swagger UI..."
+open http://localhost:21465/api-docs || xdg-open http://localhost:21465/api-docs || echo "Open manually: http://localhost:21465/api-docs"
+'''
+
+[tasks.setup-env]
+description = "Create .env file from example"
+run = '''
+if [ -f .env ]; then
+    echo "⚠️  .env already exists"
+else
+    cp .env.example .env
+    echo "✅ Created .env - Please edit and set SECRET_KEY"
+fi
+'''
+
+[tasks.generate-secret]
+description = "Generate a random SECRET_KEY"
+run = "node -e \"console.log('SECRET_KEY=' + require('crypto').randomBytes(32).toString('hex'))\""
+
+[tasks.help]
+description = "Show available tasks"
+run = "mise tasks"

@@ -1,0 +1,66 @@
+# WPPConnect Deployment - .gitignore
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# WhatsApp session tokens
+tokens/
+wppconnect_tokens/
+*.data.json
+
+# User data directories
+userDataDir/
+user-data-dir/
+
+# Node modules (if installing from source)
+node_modules/
+package-lock.json
+yarn.lock
+
+# Build outputs
+dist/
+build/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+
+# Testing
+coverage/
+.nyc_output/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Railway/Docker
+.railway/
+
+# mise
+.mise.local.toml
