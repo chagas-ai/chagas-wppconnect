@@ -3,14 +3,15 @@
 
 [phases.setup]
 # System packages required for Puppeteer to run headless Chrome
+# Updated for Ubuntu Noble (24.04) compatibility
 aptPkgs = [
     'fonts-liberation',
     'libappindicator3-1',
-    'libasound2',
-    'libatk-bridge2.0-0',
-    'libatk1.0-0',
+    'libasound2t64',
+    'libatk-bridge2.0-0t64',
+    'libatk1.0-0t64',
     'libgbm1',
-    'libgtk-3-0',
+    'libgtk-3-0t64',
     'libnspr4',
     'libnss3',
     'libx11-xcb1',
@@ -23,7 +24,8 @@ aptPkgs = [
     'libxss1',
     'libxtst6',
     'xdg-utils',
-    'ca-certificates'
+    'ca-certificates',
+    'wget'
 ]
 
 [phases.install]
